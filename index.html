@@ -29,6 +29,7 @@
       <nav class="nav">
         <a href="#product">Product</a>
         <a href="#engine">Engine</a>
+        <a href="#application">Application</a>
         <a href="#stack">Stack</a>
         <a href="#roadmap">Roadmap</a>
       </nav>
@@ -42,17 +43,69 @@
           <p class="hero-text">
             PulseRank AI is a real-time recommendation concept that combines a temporal graph neural
             network with an online filtering step, allowing the system to both predict user interest
-            and react to new interactions as they arrive.
+            and react to new interactions as they arrive. Instead of relying on a purely model-driven
+            update rule, the system treats recommendation as a dynamic prediction-correction process:
+            the graph model provides a structured prior, new interactions directly correct the current
+            state, and the resulting loop supports more adaptive personalization in fast-changing
+            environments.
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="https://github.com/hlu6/data-assimilation-recommender" target="_blank" rel="noreferrer">GitHub Repo</a>
             <a class="button button-secondary" href="#engine">See How It Works</a>
           </div>
-          <ul class="hero-points">
-            <li>Built for real-time recommendation scenarios</li>
-            <li>Combines prediction and filtering in one loop</li>
-            <li>Designed for dynamic graph learning and online adaptation</li>
-          </ul>
+          <div class="hero-problem-strip">
+            <p class="hero-problem-title">How the framework differs from purely model-driven recommenders</p>
+            <div class="hero-compare-grid">
+              <div class="compare-column compare-column-muted">
+                <p class="compare-heading">Typical recommender behavior</p>
+                <div class="compare-item">
+                  <span class="compare-icon compare-icon-muted">-</span>
+                  <div>
+                    <strong>Slower update cycle</strong>
+                    <p>New interactions often influence rankings only after more training or delayed model updates.</p>
+                  </div>
+                </div>
+                <div class="compare-item">
+                  <span class="compare-icon compare-icon-muted">-</span>
+                  <div>
+                    <strong>Staler state over time</strong>
+                    <p>Embedding states can lag behind fast-changing user behavior in streaming settings.</p>
+                  </div>
+                </div>
+                <div class="compare-item">
+                  <span class="compare-icon compare-icon-muted">-</span>
+                  <div>
+                    <strong>Limited direct correction</strong>
+                    <p>Observations are usually interpreted only through the learned model rather than updating the state immediately.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="compare-column compare-column-accent">
+                <p class="compare-heading">What this framework adds</p>
+                <div class="compare-item">
+                  <span class="compare-icon compare-icon-accent">+</span>
+                  <div>
+                    <strong>Faster adaptation</strong>
+                    <p>Filtering shortens the gap between a new interaction and an updated recommendation state.</p>
+                  </div>
+                </div>
+                <div class="compare-item">
+                  <span class="compare-icon compare-icon-accent">+</span>
+                  <div>
+                    <strong>More responsive embeddings</strong>
+                    <p>The state remains sensitive to current behavior instead of depending only on slower model-driven dynamics.</p>
+                  </div>
+                </div>
+                <div class="compare-item">
+                  <span class="compare-icon compare-icon-accent">+</span>
+                  <div>
+                    <strong>Direct self-correction</strong>
+                    <p>Fresh observations actively correct the predicted state, creating a tighter prediction-correction loop.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <aside class="hero-panel">
@@ -84,6 +137,15 @@
               <div><span>Hit@K</span><strong>Ranking Quality</strong></div>
               <div><span>MRR</span><strong>Position Accuracy</strong></div>
               <div><span>NDCG</span><strong>Top-K Relevance</strong></div>
+            </div>
+          </div>
+
+          <div class="panel-card fit-card">
+            <p class="panel-label">Built For</p>
+            <div class="metric-list">
+              <div><span>Use Case</span><strong>Real-time recommendation scenarios</strong></div>
+              <div><span>Update Logic</span><strong>Prediction and filtering in one loop</strong></div>
+              <div><span>Setting</span><strong>Dynamic graph learning and online adaptation</strong></div>
             </div>
           </div>
         </aside>
@@ -157,6 +219,130 @@
               system suitable for adaptive ranking experiments.
             </p>
           </article>
+        </div>
+      </section>
+
+      <section id="application" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Application Example</p>
+          <h3>Streaming recommendation on a dynamic user-item graph</h3>
+        </div>
+        <div class="application-grid">
+          <article class="application-card">
+            <h4>Problem setting</h4>
+            <p>
+              The pipeline is applied to a time-evolving Reddit interaction graph from the JODIE
+              benchmark, where user-item events arrive sequentially and embeddings must be updated
+              without leaking future information into earlier predictions.
+            </p>
+          </article>
+          <article class="application-card">
+            <h4>Graph construction</h4>
+            <p>
+              The implementation first extracts the largest connected component, sorts all interactions
+              in ascending time order, and treats the remaining graph as the main interaction system for
+              message passing and online updates.
+            </p>
+          </article>
+          <article class="application-card">
+            <h4>Time-step definition</h4>
+            <p>
+              Instead of using every second as a separate update, interactions are grouped into
+              one-minute buckets. The original timestamps are recorded in seconds, but second-level
+              updates are too sparse for stable learning. Using one-minute steps keeps enough meaningful
+              interactions inside each bucket while still preserving temporal resolution.
+            </p>
+          </article>
+        </div>
+
+        <div class="application-stats">
+          <div><span>Dataset</span><strong>JODIE Reddit</strong></div>
+          <div><span>Nodes</span><strong>10,980</strong></div>
+          <div><span>Interactions</span><strong>672,292</strong></div>
+          <div><span>Time Step</span><strong>~1 minute buckets</strong></div>
+        </div>
+
+        <div class="pipeline-showcase">
+          <div class="diagram-card">
+            <p class="panel-label">Prediction-Correction Loop</p>
+            <div class="pipeline-diagram">
+              <svg class="pipeline-svg" viewBox="0 0 760 360" aria-label="Prediction-correction pipeline diagram" role="img">
+                <defs>
+                  <linearGradient id="stateFill" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#fff9f1"></stop>
+                    <stop offset="100%" stop-color="#fbe9d2"></stop>
+                  </linearGradient>
+                  <linearGradient id="processFill" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#f1faf7"></stop>
+                    <stop offset="100%" stop-color="#d6efe6"></stop>
+                  </linearGradient>
+                  <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 Z" fill="#313a37"></path>
+                  </marker>
+                </defs>
+
+                <rect x="44" y="48" rx="18" ry="18" width="180" height="86" fill="url(#stateFill)" stroke="rgba(23,33,38,0.22)"></rect>
+                <rect x="274" y="48" rx="18" ry="18" width="190" height="86" fill="url(#processFill)" stroke="rgba(23,33,38,0.22)"></rect>
+                <rect x="514" y="48" rx="18" ry="18" width="180" height="86" fill="url(#stateFill)" stroke="rgba(23,33,38,0.22)"></rect>
+                <rect x="514" y="222" rx="18" ry="18" width="190" height="86" fill="url(#processFill)" stroke="rgba(23,33,38,0.22)"></rect>
+                <rect x="194" y="222" rx="18" ry="18" width="180" height="86" fill="url(#stateFill)" stroke="rgba(23,33,38,0.22)"></rect>
+
+                <path d="M 224 91 H 274" stroke="#313a37" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                <path d="M 464 91 H 514" stroke="#313a37" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                <path d="M 609 134 V 222" stroke="#313a37" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                <path d="M 514 265 H 374" stroke="#313a37" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                <path d="M 194 265 H 120 V 134 H 140" stroke="#313a37" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+
+                <text x="134" y="84" text-anchor="middle" class="svg-title">x<tspan baseline-shift="sub" font-size="12">t-1</tspan></text>
+                <text x="134" y="110" text-anchor="middle" class="svg-subtitle">current state</text>
+                <text x="369" y="82" text-anchor="middle" class="svg-title">Prediction</text>
+                <text x="369" y="108" text-anchor="middle" class="svg-subtitle">GNN as the prior</text>
+                <text x="604" y="84" text-anchor="middle" class="svg-title">x<tspan baseline-shift="sub" font-size="12">t</tspan><tspan baseline-shift="super" font-size="12">pred</tspan></text>
+                <text x="604" y="110" text-anchor="middle" class="svg-subtitle">predicted state</text>
+                <text x="609" y="256" text-anchor="middle" class="svg-title">Correction</text>
+                <text x="609" y="282" text-anchor="middle" class="svg-subtitle">interaction update</text>
+                <text x="284" y="256" text-anchor="middle" class="svg-title">x<tspan baseline-shift="sub" font-size="12">t</tspan></text>
+                <text x="284" y="282" text-anchor="middle" class="svg-subtitle">updated state</text>
+              </svg>
+            </div>
+            <div class="diagram-explainer">
+              <h4>How the loop behaves over time</h4>
+              <p>
+                Each update starts from the current embedding state, uses the GNN to produce a structured
+                prior, and then applies a direct interaction-driven correction from the newest observations.
+              </p>
+              <p>
+                The corrected state becomes the starting point for the next step, which makes the pipeline
+                both model-aware and observation-responsive instead of relying on a purely learned update rule.
+              </p>
+            </div>
+          </div>
+
+          <div class="highlight-card">
+            <p class="panel-label">Advantages Over Purely Model-Driven Recommenders</p>
+            <div class="highlight-list">
+              <div>
+                <h4>Model-driven prediction</h4>
+                <p>The GNN provides a prior over the embedding state rather than handling every update alone.</p>
+              </div>
+              <div>
+                <h4>Observation-driven correction</h4>
+                <p>New interactions directly modify the current state through filtering instead of waiting for retraining.</p>
+              </div>
+              <div>
+                <h4>Explicit control of dynamics</h4>
+                <p>The update weights balance prior state, learned prediction, and new observations in a controlled loop.</p>
+              </div>
+              <div>
+                <h4>Separation of roles</h4>
+                <p>The model captures graph structure while the filtering step handles immediate adaptation in streaming settings.</p>
+              </div>
+              <div>
+                <h4>Smarter temporal discretization</h4>
+                <p>Second-level timestamps are aggregated into one-minute buckets so each update step contains enough signal to be informative without becoming too coarse.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
