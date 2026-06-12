@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulseRank AI | Dynamic Recommendation Engine</title>
+  <meta
+    name="description"
+    content="A product showcase for a dynamic recommendation system that combines temporal graph prediction with real-time filtering updates."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">PR</span>
+        <div>
+          <p class="eyebrow">Resume Project Showcase</p>
+          <h1>PulseRank AI</h1>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#product">Product</a>
+        <a href="#engine">Engine</a>
+        <a href="#stack">Stack</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="hero-kicker">Dynamic Recommendation System</p>
+          <h2>Adaptive recommendations for fast-changing user behavior.</h2>
+          <p class="hero-text">
+            PulseRank AI is a real-time recommendation concept that combines a temporal graph neural
+            network with an online filtering step, allowing the system to both predict user interest
+            and react to new interactions as they arrive.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/your-username/your-repo" target="_blank" rel="noreferrer">GitHub Repo</a>
+            <a class="button button-secondary" href="#engine">See How It Works</a>
+          </div>
+          <ul class="hero-points">
+            <li>Built for real-time recommendation scenarios</li>
+            <li>Combines prediction and filtering in one loop</li>
+            <li>Designed for portfolio, research, and production exploration</li>
+          </ul>
+        </div>
+
+        <aside class="hero-panel">
+          <div class="panel-card signal-card">
+            <p class="panel-label">Core Loop</p>
+            <div class="signal-grid">
+              <div>
+                <span>Observe</span>
+                <strong>Events</strong>
+              </div>
+              <div>
+                <span>Predict</span>
+                <strong>GNN Prior</strong>
+              </div>
+              <div>
+                <span>Update</span>
+                <strong>Filtering</strong>
+              </div>
+              <div>
+                <span>Learn</span>
+                <strong>BPR Loss</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-card metrics-card">
+            <p class="panel-label">Evaluation Focus</p>
+            <div class="metric-list">
+              <div><span>Hit@K</span><strong>Ranking Quality</strong></div>
+              <div><span>MRR</span><strong>Position Accuracy</strong></div>
+              <div><span>NDCG</span><strong>Top-K Relevance</strong></div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="product" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Product Framing</p>
+          <h3>What this project is built to solve</h3>
+        </div>
+        <div class="card-grid three-up">
+          <article class="info-card">
+            <h4>Behavior changes quickly</h4>
+            <p>
+              Static recommenders can lag behind new signals. This system is designed for environments
+              where user intent shifts quickly and recommendations need to adapt in near real time.
+            </p>
+          </article>
+          <article class="info-card">
+            <h4>Prediction alone is not enough</h4>
+            <p>
+              A graph model can learn structure, but fresh user activity still needs a fast local
+              update. The filtering stage helps close that gap between global learning and immediate response.
+            </p>
+          </article>
+          <article class="info-card">
+            <h4>Portfolio-ready system story</h4>
+            <p>
+              The showcase highlights not only modeling work, but also product thinking, evaluation
+              design, and the ability to communicate technical systems clearly.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="engine" class="section section-accent">
+        <div class="section-heading">
+          <p class="eyebrow">System Design</p>
+          <h3>The recommendation engine in four stages</h3>
+        </div>
+        <div class="timeline">
+          <article class="timeline-step">
+            <span class="step-index">01</span>
+            <h4>Temporal event intake</h4>
+            <p>
+              User-item interactions are sorted over time, grouped into buckets, and treated as an
+              online stream rather than a static batch dataset.
+            </p>
+          </article>
+          <article class="timeline-step">
+            <span class="step-index">02</span>
+            <h4>Graph-based prediction</h4>
+            <p>
+              A lightweight GNN produces a prior state over node embeddings, using recency-aware edge
+              weights to preserve structural and temporal signal.
+            </p>
+          </article>
+          <article class="timeline-step">
+            <span class="step-index">03</span>
+            <h4>Filtering update</h4>
+            <p>
+              After new events arrive, the model performs a local adjustment step that reinforces the
+              observed item and pushes away top competing alternatives.
+            </p>
+          </article>
+          <article class="timeline-step">
+            <span class="step-index">04</span>
+            <h4>Online ranking optimization</h4>
+            <p>
+              A BPR-style objective trains the model continuously on recent interactions, making the
+              system suitable for adaptive ranking experiments.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Why It Stands Out</p>
+          <h3>Features that make the project memorable in a hiring review</h3>
+        </div>
+        <div class="feature-layout">
+          <article class="feature-card">
+            <h4>Hybrid prediction + correction</h4>
+            <p>
+              The project does more than generate scores. It introduces an adaptive correction step
+              inspired by filtering and data assimilation ideas.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h4>Streaming mindset</h4>
+            <p>
+              The architecture is organized around temporal events and incremental updates, which makes
+              it a stronger fit for modern recommendation problems than a purely static pipeline.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h4>Evaluation beyond one metric</h4>
+            <p>
+              The system design already considers `Hit@K`, `MRR`, and `NDCG`, showing good modeling
+              discipline and awareness of ranking tradeoffs.
+            </p>
+          </article>
+          <article class="feature-card">
+            <h4>Clear next-step research path</h4>
+            <p>
+              Stability diagnostics, ablations, stronger baselines, and attention-based global modeling
+              all make this project easy to extend into deeper technical work.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="stack" class="section section-dark">
+        <div class="section-heading">
+          <p class="eyebrow">Technical Snapshot</p>
+          <h3>Current implementation ingredients</h3>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-column">
+            <h4>Data + Modeling</h4>
+            <ul>
+              <li>PyTorch</li>
+              <li>PyTorch Geometric</li>
+              <li>JODIE Reddit dataset</li>
+              <li>Temporal bucket construction</li>
+              <li>Graph message passing</li>
+            </ul>
+          </div>
+          <div class="stack-column">
+            <h4>Learning + Ranking</h4>
+            <ul>
+              <li>BPR-style loss</li>
+              <li>Hard negative sampling</li>
+              <li>Online optimization</li>
+              <li>Edge-weight decay</li>
+              <li>Hit@K, MRR, NDCG</li>
+            </ul>
+          </div>
+          <div class="stack-column">
+            <h4>Portfolio Value</h4>
+            <ul>
+              <li>Machine learning systems thinking</li>
+              <li>Recommendation architecture design</li>
+              <li>Real-time personalization framing</li>
+              <li>Research-to-product storytelling</li>
+              <li>Readable technical communication</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Roadmap</p>
+          <h3>Strong next upgrades for this portfolio project</h3>
+        </div>
+        <div class="roadmap-grid">
+          <article class="roadmap-card">
+            <h4>Add benchmark results</h4>
+            <p>
+              Turn notebook runs into a clean results section with charts, metric tables, and baseline comparisons.
+            </p>
+          </article>
+          <article class="roadmap-card">
+            <h4>Refactor the codebase</h4>
+            <p>
+              Separate data loading, training, evaluation, and filtering logic into a cleaner Python package structure.
+            </p>
+          </article>
+          <article class="roadmap-card">
+            <h4>Ship an interactive demo</h4>
+            <p>
+              Add a lightweight front-end simulation that visualizes how recommendations shift after new user events.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section cta-section">
+        <div class="cta-card">
+          <p class="eyebrow">Career-Ready Presentation</p>
+          <h3>A portfolio project designed to communicate both ML depth and product thinking.</h3>
+          <p>
+            This showcase is intentionally written for recruiters, hiring managers, and engineering teams who want to
+            quickly understand the system, the technical challenge, and your design approach.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/your-username/your-repo" target="_blank" rel="noreferrer">Open Repository</a>
+            <a class="button button-secondary" href="mailto:your-email@example.com">Contact</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
