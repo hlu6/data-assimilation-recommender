@@ -76,6 +76,12 @@ The pipeline includes:
 
 ## Repository Contents
 
+- `src/main.py`: entry point for running the parallel online experiment
+- `src/da_recommender/config.py`: experiment configuration
+- `src/da_recommender/data/`: dynamic graph construction, largest-component filtering, sorting, and time buckets
+- `src/da_recommender/models/`: interchangeable prediction models, starting with the current simple GNN prior
+- `src/da_recommender/pipeline/`: the prediction + filtering update pipeline, including filtering, losses, and the runner
+- `src/da_recommender/evaluation/`: ranking metrics including `Hit@K`, `MRR`, and `NDCG`
+- `requirements.txt`: core Python dependencies for running the experiment
 - `index.html`: GitHub Pages project site
 - `styles.css`: styling for the project site
-- `main.py`: local placeholder Python file
